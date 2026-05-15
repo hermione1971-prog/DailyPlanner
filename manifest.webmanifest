@@ -1,0 +1,18 @@
+{
+  "name": "まいにち手帳",
+  "short_name": "手帳",
+  "description": "赤毛のアンを思わせる手帳風ToDoアプリ",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f1df",
+  "theme_color": "#527a54",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
