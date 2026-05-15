@@ -1,26 +1,120 @@
 <!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#527a54" />
-  <title>まいにち手帳</title>
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="icon" href="icon.svg" />
-  <link rel="apple-touch-icon" href="icon.svg" />
-  <style>
-    :root{--bg:#f8f1df;--paper:#fffaf0;--ink:#3f352e;--muted:#7c6d60;--line:#decfb8;--sage:#527a54;--sage2:#6f9368;--accent:#b75f43;--soft:#fff5df;--sky:#dcecf0}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 12% 12%,rgba(255,207,205,.55) 0 7px,transparent 8px),linear-gradient(90deg,rgba(111,147,104,.1) 1px,transparent 1px),linear-gradient(rgba(183,95,67,.08) 1px,transparent 1px),var(--bg);background-size:160px 160px,30px 30px,30px 30px;color:var(--ink);font-family:"Segoe UI","Yu Gothic UI",Meiryo,sans-serif}.wrap{width:min(980px,calc(100% - 20px));margin:auto;padding:24px 0 40px}.top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}.date,.eyebrow{margin:0 0 6px;color:var(--muted);font-size:.82rem;font-weight:800}h1{margin:0;color:#7f3d2f;font-size:clamp(2.3rem,8vw,3.7rem);line-height:1;text-shadow:2px 2px #fff}h2{margin:0;font-size:1.32rem}.note{margin:12px 0 0;color:var(--muted);font-weight:700}.score{min-width:72px;min-height:72px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;background:linear-gradient(#fffdf6,#fff3dc);box-shadow:0 14px 30px rgba(87,62,38,.14);position:relative}.score:before{content:"";position:absolute;top:-8px;width:38px;height:17px;border-radius:8px;background:#c98a67}.score span{font-size:1.8rem;font-weight:900;color:var(--accent)}.score small{color:var(--muted);font-weight:800}.hero{margin:26px 0 18px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#dcecf0;box-shadow:0 18px 42px rgba(87,62,38,.14)}.hero svg{display:block;width:100%;height:auto}.panel{border:1px solid var(--line);border-radius:8px;background:rgba(255,250,240,.96);box-shadow:0 16px 34px rgba(87,62,38,.12);padding:20px;margin-top:18px}.focus{border-top:7px solid var(--sage2)}form{display:grid;gap:10px}.focus form{grid-template-columns:1fr auto;margin-top:16px}input,select{width:100%;min-height:44px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);padding:0 12px;font:inherit}input:focus,select:focus{border-color:var(--sage);outline:3px solid rgba(111,147,104,.22)}button{font:inherit;cursor:pointer;border-radius:8px;font-weight:900}button[type=submit]{min-height:44px;border:0;background:linear-gradient(#7fa878,var(--sage));color:white;padding:0 18px;box-shadow:0 8px 16px rgba(82,122,84,.26)}.focus-text{margin:14px 0 0;color:#7f3d2f;background:var(--soft);border:1px dashed #d7a872;border-radius:8px;padding:11px 12px;font-weight:800}.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.85fr);gap:18px}.heading{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}.quiet,.filter{min-height:42px;border:1px solid var(--line);background:#fff5df;color:var(--ink);padding:0 12px}.task-form{grid-template-columns:minmax(180px,1fr) 132px 86px auto}.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}.filter{background:white;color:var(--muted)}.filter.active{background:#e7efe1;color:var(--sage);border-color:#bdd0b4}.tasks,.goals{display:grid;gap:10px;margin:0;padding:0}.task{display:grid;grid-template-columns:38px 1fr 38px;gap:12px;align-items:center;min-height:70px;padding:12px;border:1px solid var(--line);border-radius:8px;background:white;list-style:none}.task.done{opacity:.68}.task.done .title{text-decoration:line-through}.check,.del{width:38px;height:38px;border:1px solid var(--line);background:#fff8e8;color:var(--ink)}.task.done .check{background:var(--sage2);border-color:var(--sage2);color:white}.title{font-weight:900;overflow-wrap:anywhere}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.pill{border-radius:999px;padding:4px 9px;font-size:.75rem;font-weight:900}.cat{background:#e7efe1;color:var(--sage)}.high{background:#f8e1d6;color:#7f3d2f}.medium{background:#fff1d9;color:#b9873d}.low{background:#dcecf0;color:#526c76}.empty{display:none;text-align:center;color:var(--muted);margin:18px 0 0}.empty.show{display:block}.goal{padding:14px;border:1px solid var(--line);border-radius:8px;background:white}.goal-row{display:flex;justify-content:space-between;font-weight:900}.track{height:9px;border-radius:999px;background:#eee3d1;margin-top:10px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--sage2),#c98a67)}@media(max-width:800px){.grid,.task-form,.focus form{grid-template-columns:1fr}.heading{align-items:stretch;flex-direction:column}.hero{margin-top:20px}.panel{padding:18px}}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header class="top"><div><p class="date" id="date"></p><h1>まいにち手帳</h1><p class="note">小さな努力を、物語みたいに積み重ねる。</p></div><div class="score"><span id="doneCount">0</span><small>できた</small></div></header>
-    <div class="hero" aria-hidden="true"><svg viewBox="0 0 1200 520" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="520" fill="#dcecf0"/><rect y="225" width="1200" height="295" fill="#c8d9b9"/><rect y="320" width="1200" height="200" fill="#a9c99f"/><rect x="0" y="0" width="295" height="520" fill="#f8efe2"/><path d="M50 0h140v470H50z" fill="#dbe8d6"/><path d="M72 0h96v470H72z" fill="#fffaf0" opacity=".8"/><path d="M205 0c-55 80-65 170-20 270 28 62 25 130-8 204h98V0z" fill="#fffdf6" opacity=".84"/><path d="M244 0c-42 100-35 188 23 264 36 48 35 116-8 205h58V0z" fill="#f3dfc9" opacity=".75"/><rect x="0" y="392" width="1200" height="128" fill="#8a5b39"/><rect x="475" y="160" width="330" height="230" rx="30" fill="#f7e2c1"/><path d="M440 178 640 54l208 124H440Z" fill="#406843"/><path d="M640 54h155l182 124H818Z" fill="#315b38"/><rect x="545" y="226" width="78" height="84" fill="#fffaf0"/><rect x="668" y="226" width="78" height="84" fill="#fffaf0"/><rect x="625" y="302" width="68" height="88" fill="#b75f43"/><circle cx="650" cy="218" r="76" fill="#f6c8b2"/><path d="M560 195c10-105 164-106 184 8 48 17 72 78 48 124-24 47-78 52-121 29-41 33-104 17-127-25-48 1-87-42-76-87 8-31 43-49 92-49Z" fill="#2f2928"/><circle cx="604" cy="236" r="18" fill="#2f2928"/><circle cx="690" cy="236" r="18" fill="#2f2928"/><circle cx="610" cy="229" r="6" fill="white"/><circle cx="696" cy="229" r="6" fill="white"/><path d="M620 287c28 22 61 22 88 0" fill="none" stroke="#7f3d2f" stroke-width="7" stroke-linecap="round"/><path d="M520 390c22-88 232-88 258 0v130H520Z" fill="#8f5b42"/><path d="M542 386h214v45H542Z" fill="#fff2df"/><rect x="308" y="332" width="248" height="135" rx="12" fill="#d2c8bd"/><rect x="320" y="348" width="222" height="103" fill="#e8e1dc"/><rect x="885" y="150" width="238" height="310" rx="18" fill="#5d714c"/><rect x="910" y="178" width="188" height="28" fill="#8a5b39"/><rect x="910" y="238" width="188" height="28" fill="#8a5b39"/><rect x="910" y="302" width="188" height="28" fill="#8a5b39"/><g fill="#7f3d2f"><rect x="930" y="204" width="35" height="62"/><rect x="980" y="204" width="35" height="62"/><rect x="1028" y="204" width="35" height="62"/></g><g fill="#315b38"><rect x="930" y="268" width="35" height="62"/><rect x="980" y="268" width="35" height="62"/><rect x="1028" y="268" width="35" height="62"/></g><circle cx="112" cy="360" r="16" fill="#fffaf0"/><circle cx="150" cy="342" r="13" fill="#fffaf0"/><circle cx="180" cy="374" r="15" fill="#fffaf0"/><rect x="95" y="388" width="118" height="70" rx="20" fill="#fffaf0"/><path d="M80 458h150" stroke="#7f3d2f" stroke-width="10" stroke-linecap="round"/></svg></div>
-    <section class="panel focus"><p class="eyebrow">Green Gables note</p><h2>今日のいちばん</h2><form id="focusForm"><input id="focusInput" maxlength="44" placeholder="例：英語30分、簿記1章、夕食の下ごしらえ"/><button type="submit">設定</button></form><p class="focus-text" id="focusText"></p></section>
-    <main class="grid"><section class="panel"><div class="heading"><div><p class="eyebrow">Kindred list</p><h2>今日の小さな一歩</h2></div><button class="quiet" id="clearDone" type="button">できたことを整理</button></div><form class="task-form" id="taskForm"><input id="taskInput" required maxlength="80" placeholder="やることを入力"/><select id="cat"><option>家事</option><option>リベ活</option><option>資格</option><option>英語</option><option>海外ワーク</option><option>自分時間</option></select><select id="pri"><option value="3">高</option><option value="2" selected>中</option><option value="1">低</option></select><button type="submit">追加</button></form><div class="filters"><button class="filter active" data-filter="all">すべて</button><button class="filter" data-filter="active">未完了</button><button class="filter" data-filter="done">完了</button></div><ul class="tasks" id="tasks"></ul><p class="empty" id="empty">今日のタスクを追加しましょう。</p></section><aside class="panel"><p class="eyebrow">Orchard progress</p><h2>カテゴリの進み具合</h2><div class="goals" id="goals"></div></aside></main>
-  </div>
-<script>
-const cats=["家事","リベ活","資格","英語","海外ワーク","自分時間"], key="mainichi-public-tasks", focusKey="mainichi-public-focus";let tasks=JSON.parse(localStorage.getItem(key)||"[]"), filter="all", focus=localStorage.getItem(focusKey)||"";const $=s=>document.querySelector(s);$("#date").textContent=new Intl.DateTimeFormat("ja-JP",{dateStyle:"full"}).format(new Date());$("#focusInput").value=focus;function save(){localStorage.setItem(key,JSON.stringify(tasks))}function render(){const visible=tasks.filter(t=>filter==="active"?!t.done:filter==="done"?t.done:true).sort((a,b)=>a.done-b.done||b.pri-a.pri||a.created-b.created);$("#tasks").innerHTML=visible.map(t=>`<li class="task ${t.done?"done":""}" data-id="${t.id}"><button class="check">${t.done?"✓":""}</button><div><div class="title">${esc(t.title)}</div><div class="meta"><span class="pill cat">${t.cat}</span><span class="pill ${t.pri==3?"high":t.pri==2?"medium":"low"}">優先度 ${t.pri==3?"高":t.pri==2?"中":"低"}</span></div></div><button class="del">×</button></li>`).join("");$("#empty").classList.toggle("show",!visible.length);$("#doneCount").textContent=tasks.filter(t=>t.done).length;$("#focusText").textContent=focus?`今日の軸：${focus}`:"今日の軸を決めると、迷った時に戻る場所になります。";$("#goals").innerHTML=cats.map(c=>{const all=tasks.filter(t=>t.cat===c),done=all.filter(t=>t.done).length,p=all.length?Math.round(done/all.length*100):0;return `<div class="goal"><div class="goal-row"><span>${c}</span><span>${done}/${all.length}</span></div><div class="track"><div class="fill" style="width:${p}%"></div></div></div>`}).join("");document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter))}function esc(s){return s.replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]))}$("#focusForm").onsubmit=e=>{e.preventDefault();focus=$("#focusInput").value.trim();localStorage.setItem(focusKey,focus);render()};$("#taskForm").onsubmit=e=>{e.preventDefault();const title=$("#taskInput").value.trim();if(!title)return;tasks.push({id:crypto.randomUUID(),title,cat:$("#cat").value,pri:+$("#pri").value,done:false,created:Date.now()});$("#taskInput").value="";save();render()};$("#tasks").onclick=e=>{const li=e.target.closest(".task");if(!li)return;const t=tasks.find(x=>x.id===li.dataset.id);if(e.target.className==="check")t.done=!t.done;if(e.target.className==="del")tasks=tasks.filter(x=>x.id!==t.id);save();render()};$("#clearDone").onclick=()=>{tasks=tasks.filter(t=>!t.done);save();render()};document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render()});if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));render();
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#527a54" />
+    <title>まいにち手帳</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="date-label" id="todayLabel"></p>
+          <h1>まいにち手帳</h1>
+          <p class="top-note">小さな努力を、物語みたいに積み重ねる。</p>
+        </div>
+        <img class="hero-visual" src="anne-study.jpg" alt="赤毛のアンを思わせる書斎で学習する女の子のイラスト" />
+        <div class="score-card" aria-live="polite">
+          <span id="doneCount">0</span>
+          <small>できた</small>
+        </div>
+      </header>
+
+      <main>
+        <section class="focus-band" aria-labelledby="focusTitle">
+          <div>
+            <p class="eyebrow">Green Gables note</p>
+            <h2 id="focusTitle">今日のいちばん</h2>
+          </div>
+          <form class="focus-form" id="focusForm">
+            <input
+              id="focusInput"
+              type="text"
+              maxlength="44"
+              placeholder="例：英語30分、簿記1章、夕食の下ごしらえ"
+              aria-label="今日の一番大切なこと"
+            />
+            <button type="submit">設定</button>
+          </form>
+          <p class="focus-text" id="focusText"></p>
+        </section>
+
+        <section class="dashboard-grid">
+          <div class="panel task-panel" aria-labelledby="taskTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Kindred list</p>
+                <h2 id="taskTitle">今日の小さな一歩</h2>
+              </div>
+              <button class="quiet-button" type="button" id="clearDoneButton">できたことを整理</button>
+            </div>
+
+            <form class="task-form" id="taskForm">
+              <input
+                id="taskInput"
+                type="text"
+                maxlength="80"
+                placeholder="やることを入力"
+                aria-label="新しいタスク"
+                required
+              />
+              <select id="categoryInput" aria-label="カテゴリ">
+                <option value="家事">家事</option>
+                <option value="リベ活">リベ活</option>
+                <option value="資格">資格</option>
+                <option value="英語">英語</option>
+                <option value="海外ワーク">海外ワーク</option>
+                <option value="自分時間">自分時間</option>
+              </select>
+              <select id="priorityInput" aria-label="優先度">
+                <option value="3">高</option>
+                <option value="2" selected>中</option>
+                <option value="1">低</option>
+              </select>
+              <button type="submit">追加</button>
+            </form>
+
+            <div class="filters" aria-label="表示切り替え">
+              <button class="filter-button active" type="button" data-filter="all">すべて</button>
+              <button class="filter-button" type="button" data-filter="active">未完了</button>
+              <button class="filter-button" type="button" data-filter="done">完了</button>
+            </div>
+
+            <ul class="task-list" id="taskList"></ul>
+            <p class="empty-state" id="emptyState">今日のタスクを追加しましょう。</p>
+          </div>
+
+          <aside class="panel" aria-labelledby="goalsTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Orchard progress</p>
+                <h2 id="goalsTitle">カテゴリの進み具合</h2>
+              </div>
+            </div>
+            <div class="goal-list" id="goalList"></div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <template id="taskTemplate">
+      <li class="task-item">
+        <button class="check-button" type="button" aria-label="完了にする"></button>
+        <div class="task-main">
+          <span class="task-title"></span>
+          <div class="task-meta">
+            <span class="category-pill"></span>
+            <span class="priority-pill"></span>
+          </div>
+        </div>
+        <button class="delete-button" type="button" aria-label="削除">×</button>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
 </html>
